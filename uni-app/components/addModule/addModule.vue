@@ -24,6 +24,7 @@
 
 <script>
 export default {
+	name:'addModule',
 	data() {
 		return {
 			matchArray:[],
@@ -178,7 +179,7 @@ export default {
 			]
 		};
 	},
-	onShow() {
+	created() {
 		uni.getStorage({
 			key:"newModule",
 			success:(res)=>{
@@ -225,7 +226,7 @@ export default {
 					})
 					setTimeout(()=>{
 						uni.reLaunch({
-							url:"../alpha/alpha"
+							url:"/pages/index/index"
 						})
 					},1200)
 				}

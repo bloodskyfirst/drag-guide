@@ -1,5 +1,5 @@
 <template>
-	<view class="body">
+	<view class="body" >
 		<scroll-view scroll-y="true" class="scroll">
 			
 			<view class="item-box">
@@ -42,14 +42,26 @@
 
 <script>
 	export default {
+		name:"dragGuide",
+		props: {
+			imgHeight: {
+				type: Number,
+				default: 200
+			},
+			imgWidth:{
+				type:Number,
+				default: 200
+			},
+			row:{
+				type:Number, // 每行3个=列数
+				default:3
+			}
+		},
 		data() {
 			return {
-				imgWidth:200,
-				imgHeight:200,
 				openAlter:false,
 				showTip:true,
 				alted:false,
-				row: 3,			// 每行3个=列数
 				leave: NaN,    //取余多余的数量
 				column: NaN,  //行数  有多少个横行
 				moveLimit: {    //所有图片的移动总区域
@@ -90,18 +102,18 @@
 				key:"newModule",
 				success: (res) => {
 					this.image=res.data
+				},
+				complete: () =>{
+					this.imgInit()
 				}
 			})
-			this.imgInit()
 		},
 		mounted() {
 			if (this.image.length) {
 				this.init()
 			}
 		},
-		onHide() {
-			this.openAlter=false
-			this.showTip=true
+		beforeDestroy() {
 			uni.setStorage({
 				key:"newModule",
 				data:this.image
@@ -183,7 +195,7 @@
 			},
 			addModule(){
 				uni.reLaunch({
-					url:"../addModule/addModule"
+					url:"/pages/add/add"
 				})
 			},
 			getPosi(num) { 
