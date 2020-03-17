@@ -1,9 +1,10 @@
 ###    drag-guide
 ###  a drag-guide component 一个基于vue开发的可拖拽宫格插件，兼容多端.
-<p>拖拽改变方式按照安卓原生模块改变的样式 进行开发.</p>         
+<p>拖拽改变方式按照安卓原生模块改变的样式 进行开发.</p>
 
 <br>
-##### h5 demo版本可直接使用live-serve进行预览
+<p> h5 demo版本可直接使用live-serve进行预览</p>
+<br>
 <ul>
 <li>安装 npm install -g live-server</li>
 <li>使用  在命令行中输入 live-server</li>
@@ -23,12 +24,20 @@
 ##### 默认使用说明：
 
 <br>
+<p> dragGuide 组件说明</p>
 <ul>
-<li>引入后只需要在插件页修改 具体要使用的宫格数row，默认为九宫格
-<li> row的数值 实现不同的 宫格
-<li> imgHeight 以及 imgWidth 定义宫格内每一个图片的大小,请记得计算row宫格数，避免图片大小超出造成样式崩坏
-<li> addModule 按自身需求引入.里面可直接使用.无需任何参数
-<br>
-<li> 图片资源可自行在static/all            默认的模块图片
-<li>               static/all/extra       额外的模块图片
+<li> 引入后只需要在插件页修改 具体要使用的宫格数row，默认为九宫格</li> 
+<li> row的数值 实现不同的 宫格</li> 
+<li> imgHeight 以及 imgWidth 定义宫格内每一个图片的大小,请记得计算row宫格数，避免图片大小超出造成样式崩坏 </li> 
+<li> scrollW,scrollH 定义该滚动框的长度，默认该滚动框宽高自适应.(单位：String)</li> 
+<li style="color:red">使用vue的情况，请看情况是否需要使用 路由 以及 vuex ,可查看注释区域说明</li> 
 </ul>
+<br>
+<p> addModule 组件说明</p>
+<h6> addModule 按自身需求引入.里面可直接使用.无需任何参数 (vue使用的情况请按需要是否使用路由/ vuex等) </h6>
+<br>
+<p> 图片资源说明</p>
+<li> static/all            默认的模块图片</li> 
+<li> static/all/extra      额外的模块图片</li>
+<li>请按需修改</li>
+
