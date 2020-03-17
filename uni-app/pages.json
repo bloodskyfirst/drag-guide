@@ -1,0 +1,22 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path":"pages/alpha/alpha",
+			"style":{
+				"navigationBarTitleText":"主页"
+			}
+		},
+		{
+			"path": "pages/addModule/addModule",
+			"style": {
+				"navigationBarTitleText": "增加模块" //这是原来自带的
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#F8F8F8"
+	}
+}
