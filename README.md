@@ -17,7 +17,8 @@
 
 ##### 后续会提供图片可进行查看.
 <br>
-#####  默认提供vue版本 以及 uni-app版本 经尝试可以适应于各端，Android不兼容4.4以下版本.如有问题请联系qq.
+
+<h3>默认提供vue版本 以及 uni-app版本 经尝试可以适应于各端，Android不兼容4.4以下版本.如有问题请联系qq.</h3>
 
 <br>
 
@@ -30,7 +31,7 @@
 <li> row的数值 实现不同的 宫格</li> 
 <li> imgHeight 以及 imgWidth 定义宫格内每一个图片的大小,请记得计算row宫格数，避免图片大小超出造成样式崩坏 </li> 
 <li> scrollW,scrollH 定义该滚动框的长度，默认该滚动框宽高自适应.(单位：String)</li> 
-<li style="color:red">使用vue的情况，请看情况是否需要使用 路由 以及 vuex ,可查看注释区域说明</li> 
+<li> !!!使用vue的情况，请看情况是否需要使用 路由 以及 vuex ,可查看注释区域说明</li> 
 </ul>
 <br>
 <p> addModule 组件说明</p>
