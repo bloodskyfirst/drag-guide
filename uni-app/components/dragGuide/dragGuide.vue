@@ -1,6 +1,6 @@
 <template>
 	<view class="body" >
-		<scroll-view scroll-y="true" class="scroll">
+		<scroll-view scroll-y="true" :style="{width:scrollW,height:scrollH,position:'relative'}">
 			
 			<view class="item-box">
 				<view 
@@ -55,6 +55,14 @@
 			row:{
 				type:Number, // 每行3个=列数
 				default:3
+			},
+			scrollW:{
+				type:String,
+				default:'100%'
+			},
+			scrollH:{
+				typef:String,
+				default:'100%'
 			}
 		},
 		data() {
@@ -335,12 +343,6 @@
 	.body {
 		width: 100%;
 		overflow: hidden;
-	}
-
-	.scroll {
-		width: 100%;
-		height: 100%;
-		position: relative;
 	}
 
 	.item-box {
