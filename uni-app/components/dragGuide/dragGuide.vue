@@ -1,23 +1,31 @@
 <template>
 	<view class="body" >
-		<scroll-view scroll-y="true" :style="{width:scrollW,height:scrollH,position:'relative'}">
+		<scroll-view scroll-y="true" :style="{width:scrollW,height:scrollH}">
 			
 			<view class="item-box">
 				<view 
 					v-for="(item,index) in image"  
 					:key=index 
 					:class="{'moving':movingClass===index}" 
-					:style="{transform:'translate('+distX(index)+'px'+','+distY(index)+'px)',width: 'calc(100% / '+row+')' , }"
-					@touchstart="itemTap($event,index)" 
+					:style="{transform:'translate('+distX(index)+'px'+','+distY(index)+'px)',width: 'calc(100% / '+row+')',position:'relative'}"
+					@touchstart.stop="itemTap($event,index)" 
 					@touchmove.stop="itemMove($event,index)" 
-					@touchend="stopMove($event,index)">
+					@touchend.stop="stopMove($event,index)">
 					<image 
 						:src="imghandle(item.img)" 
 						mode="widthFix"  
-						@tap="go(item.url)" 
+						@touchstart="go(item.url)"
 						@load="updateImg(index)"
 						:style="{width:imgWidth+'rpx',height:imgHeight+'rpx'}"
-						/>
+					/>
+					<image 
+						:class="{'del':true,'hide-icon': !openAlter ? true : false}" 
+						src="../../static/del.png" 
+						mode="widthFix"
+						@touchstart.stop="del(index)"
+						@touchmove.stop=""
+						@touchend.stop=""
+					/>
 				</view>
 			</view>
 			
@@ -84,6 +92,7 @@
 					top: 0,
 					left: 0
 				},
+				moving:false,
 				movingClass: NaN, 
 				move: {
 					beforeX: 0,
@@ -150,9 +159,6 @@
 					this.updateLimit()
 				}).exec()
 			},
-			test(){
-				selectorQuery.selectViewport()
-			},
 			distX(i) {	// 移动函数
 				return this.image[i].moving ? this.move.movingX : 0
 			},
@@ -194,6 +200,12 @@
 				this.cellW = this.itemBox.width / this.row
 				this.cellH = this.itemBox.height / this.column
 				this.alted = false
+			},
+			del(i){
+				if(this.moving){return false;}
+				this.image.splice(i,1)
+				this.updateArr(this.image.length)
+				this.init()
 			},
 			updateImg(index){
 				if(index===this.alted){
@@ -300,6 +312,8 @@
 			},
 			itemTap(e, i) {	
 				if(this.openAlter){
+					if(this.moving){return false;}
+					this.moving=true;
 					this.image[i].moving = !this.image[i].moving	
 					this.movingClass = i
 					this.move.beforeX = e.touches[0].clientX	
@@ -329,6 +343,7 @@
 					this.move.tarIndex!=='' ? this.image[this.move.tarIndex].moving=false : this.image[i].moving=false
 					this.move.tarIndex=''
 					this.movingClass = NaN
+					this.moving=false;
 					console.log('最终距离', this.move.movingX, this.move.movingY)
 					for (let value in this.move) { // 重置位置
 						this.move[value] =''
@@ -354,9 +369,24 @@
 	}
 
 	.moving {
-		z-index: 2;
+		z-index: 3;
 	}
 
+	.del{
+		width: 50rpx;
+		height:50rpx;
+		display: block;
+		position: absolute;
+		right: 10rpx;
+		top:10rpx;
+		z-index:2;
+	}
+
+	.hide-icon{
+		opacity: 0;
+		z-index:-1;
+	}
+	
 	.item-box image {
 		margin: 0 auto;
 		display: block;
