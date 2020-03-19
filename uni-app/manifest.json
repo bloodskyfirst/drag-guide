@@ -75,12 +75,13 @@
     "h5" : {
         "title" : "X宫格模块",
         "router" : {
-            "mode" : "history",
-            "base" : ""
+            "mode" : "hash",
+            "base" : "/demo/h5"
         },
         "template" : "",
         "uniStatistics" : {
             "enable" : false
-        }
+        },
+        "domain" : "https://wolfkoko.gitee.io/drag-guide/"
     }
 }
