@@ -15,8 +15,14 @@
 
 <br>
 
-##### 后续会提供图片可进行查看.
+##### 实例图片
 <br>
+![avatar](https://gitee.com/wolfkoko/image/blob/master/demo.gif)
+<br>
+
+##### 插件体验网址
+<br>
+[体验]: https://wolfkoko.gitee.io/drag-guide
 
 <h3>默认提供vue版本 以及 uni-app版本 经尝试可以适应于各端，Android不兼容4.4以下版本.如有问题请联系qq.</h3>
 
