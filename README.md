@@ -17,7 +17,7 @@
 
 ##### 实例图片
 <br>
-![avatar](https://gitee.com/wolfkoko/image/blob/master/demo.gif)
+![avatar](./demo.gif)
 <br>
 
 ##### 插件体验网址
