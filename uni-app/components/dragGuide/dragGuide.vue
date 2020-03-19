@@ -30,14 +30,14 @@
 			</view>
 			
 			<view class="tip-box" v-show="openAlter && showTip">
-				<image src="../../static/light.png" mode="widthFix" />
+				<image src="https://wolfkoko.gitee.io/drag-guide/static/light.png" mode="widthFix" />
 				<text>点此添加功能,拖动功能可以调整排序</text>
 				<text @tap="showTip=!showTip">X</text>
 				<view></view>
 			</view>
 			
 			<view class="detail-box" v-show="openAlter">
-				<image class="module-img" src="../../static/add.png" mode="widthFix" @tap="addModule" />
+				<image class="module-img" src="https://wolfkoko.gitee.io/drag-guide/static/add.png" mode="widthFix" @tap="addModule" />
 				<text>添加板块</text>
 			</view>
 			<view class="space" v-show="!openAlter"></view>
@@ -138,7 +138,7 @@
 		},
 		methods: {
 			imghandle(url) {
-				return "../../static/all/" + url + ".png" 
+				return "https://wolfkoko.gitee.io/drag-guide/all/" + url + ".png" 
 			},
 			imgInit(){
 				for(let i=0,img=this.image;i<=this.image.length-1;i++){
