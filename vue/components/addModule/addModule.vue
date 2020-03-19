@@ -1,25 +1,25 @@
 <template>
-	<view class="body">
-		<view class="page-bd">
-		<view class="module-box" v-for="(item, m) in module" :key="m">
-			<text>{{item.name}}</text>
-			<view :class="{special:d!=(item.detail.length-1),module:true}" v-for="(detail,d) in item.detail" :key="d">
-					<image  :src="moduleImg(detail.img)" mode="widthFix" />
-					<view >
-						<text>{{detail.title}}</text>
-						<text>{{detail.detail}}</text>
-					</view>
-					<view class="select-box" @tap="select(detail.selected,m,d)">
-						<image src="../../static/selected_03.png" mode="widthFix"  v-show="detail.selected"/>
-						<view v-show="!detail.selected"/>
-					</view>
-			</view>
-		</view>
-		</view>
-		<view class="btn-box">
+	<div class="body">
+		<div class="page-bd">
+		<div class="module-box" v-for="(item, m) in module" :key="m">
+			<p>{{item.name}}</p>
+			<div :class="{special:d!=(item.detail.length-1),module:true}" v-for="(detail,d) in item.detail" :key="d">
+					<img  :src="moduleImg(detail.img)"  />
+					<div >
+						<p>{{detail.title}}</p>
+						<p>{{detail.detail}}</p>
+					</div>
+					<div class="select-box" @tap="select(detail.selected,m,d)">
+						<img src="../../static/selected_03.png"   v-show="detail.selected"/>
+						<div v-show="!detail.selected"/>
+					</div>
+			</div>
+		</div>
+		</div>
+		<div class="btn-box">
 			<button type="button"  @tap="addModule">添加</button>
-		</view>
-	</view>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -237,7 +237,7 @@ export default {
 	width: 100%;
 }
 
-.module-box>text{
+.module-box>p{
 	width:100%;
 	height: 30px;
 	line-height: 30px;
@@ -264,7 +264,7 @@ export default {
 	border-bottom: 1px solid #EDEDED;
 }
 
-.module>image{
+.module>img{
 	margin-right:16.5px;
 	width:57px;
 	height:57px;
@@ -282,26 +282,25 @@ export default {
 	justify-content: center;
 }
 
-.select-box>view, .select-box>image{
+.select-box>div, .select-box>img{
 	width:18px;
 	height:18px;
 	border-radius:50%;
 	z-index: 2;
 }
 
-.select-box>view{
+.select-box>div{
 	border: 1px solid rgba(141,141,141,1);
 }
 
-.module>view text{
+.module>div p{
 	font-size:15px;
 	font-weight:bold;
 	color:rgba(34,34,34,1);
-	display: block;
 	margin-top:11.5px;
 }
 
-.module>view text+text{
+.module>div p+p{
 	font-size:12px;
 	font-weight:500;
 	color:rgba(141,141,141,1);
