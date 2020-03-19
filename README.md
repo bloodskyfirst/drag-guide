@@ -17,7 +17,7 @@
 
 ####  实例图片
 <br>
-![image](/demo.gif)
+![Image](https://raw.githubusercontent.com/bloodskyfirst/drag-guide/master/demo.gif)
 <br>
 
 ####  插件体验网址
