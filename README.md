@@ -15,12 +15,12 @@
 
 <br>
 
-##### 实例图片
+####  实例图片
 <br>
-![avatar](./demo.gif)
+![image](https://github.com/bloodskyfirst/drag-guide/blob/master/demo.gif)
 <br>
 
-##### 插件体验网址
+####  插件体验网址
 <br>
 [体验]: https://wolfkoko.gitee.io/drag-guide
 
