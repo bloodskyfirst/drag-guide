@@ -73,11 +73,14 @@
         "usingComponents" : true
     },
     "h5" : {
-        "title" : "九宫格模块",
+        "title" : "X宫格模块",
         "router" : {
             "mode" : "history",
             "base" : ""
         },
-        "template" : ""
+        "template" : "",
+        "uniStatistics" : {
+            "enable" : false
+        }
     }
 }
