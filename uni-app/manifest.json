@@ -76,7 +76,7 @@
         "title" : "X宫格模块",
         "router" : {
             "mode" : "hash",
-            "base" : ""
+            "base" : "/drag-guide/"
         },
         "template" : "",
         "uniStatistics" : {
