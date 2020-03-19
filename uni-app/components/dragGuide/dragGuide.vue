@@ -1,8 +1,8 @@
 <template>
 	<view class="body" >
-		<scroll-view scroll-y="true" :style="{width:scrollW,height:scrollH}">
+		<scroll-view scroll-y="true" :style="{width:scrollW,height:scrollH,}">
 			
-			<view class="item-box">
+			<view class="item-box" >
 				<view 
 					v-for="(item,index) in image"  
 					:key=index 
@@ -13,19 +13,19 @@
 					@touchend.stop="stopMove($event,index)">
 					<image 
 						:src="imghandle(item.img)" 
-						mode="widthFix"  
 						@touchstart="go(item.url)"
 						@load="updateImg(index)"
 						:style="{width:imgWidth+'rpx',height:imgHeight+'rpx'}"
 					/>
 					<image 
-						:class="{'del':true,'hide-icon': !openAlter ? true : false}" 
+						v-show="openAlter"
+						class="del"
 						src="../../static/del.png" 
 						mode="widthFix"
 						@touchstart.stop="del(index)"
 						@touchmove.stop=""
 						@touchend.stop=""
-					/>
+					/> 
 				</view>
 			</view>
 			
@@ -368,6 +368,12 @@
 		position: relative;
 	}
 
+	.item-box>view{
+		display: flex;
+		justify-content: center;
+		align-content: center;
+	}
+	
 	.moving {
 		z-index: 3;
 	}
@@ -375,21 +381,13 @@
 	.del{
 		width: 50rpx;
 		height:50rpx;
-		display: block;
-		position: absolute;
+		position: absolute !important;
 		right: 10rpx;
 		top:10rpx;
 		z-index:2;
 	}
-
-	.hide-icon{
-		opacity: 0;
-		z-index:-1;
-	}
 	
 	.item-box image {
-		margin: 0 auto;
-		display: block;
 		border-radius: 100rpx;
 	}
 
@@ -500,7 +498,6 @@
 	.detail-box image {
 		width: 114rpx;
 		height: 114rpx;
-		
 		background: rgba(245, 247, 249, 1);
 		border-radius: 50%;
 		display: block;

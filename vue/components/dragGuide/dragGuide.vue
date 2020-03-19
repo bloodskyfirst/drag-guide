@@ -1,43 +1,49 @@
 <template>
-	<view class="body" >
-		<scroll-view scroll-y="true" :style="{width:scrollW,height:scrollH,position:'relative'}">
+	<div class="body" >
+		<div scroll-y="true" :style="{width:scrollW,height:scrollH,position:'relative','overflow-y':'scroll','overflow-x':'hidden'}">
 			
-			<view class="item-box">
-				<view 
+			<div class="item-box" ref="dragArea">
+				<div 
 					v-for="(item,index) in image"  
 					:key=index 
 					:class="{'moving':movingClass===index}" 
-					:style="{transform:'translate('+distX(index)+'px'+','+distY(index)+'px)',width: 'calc(100% / '+row+')' , }"
-					@touchstart="itemTap($event,index)" 
+					:style="{transform:'translate('+distX(index)+'px'+','+distY(index)+'px)',width: 'calc(100% / '+row+')',position:'relative'}"
+					@touchstart.stop="itemTap($event,index)"  
 					@touchmove.stop="itemMove($event,index)" 
-					@touchend="stopMove($event,index)">
-					<image 
+					@touchend.stop="stopMove($event,index)">
+					<img 
 						:src="imghandle(item.img)" 
-						mode="widthFix"  
-						@tap="go(item.url)" 
+						@touchstart="go(item.url)" 
 						@load="updateImg(index)"
 						:style="{width:imgWidth+'px',height:imgHeight+'px'}"
 						/>
-				</view>
-			</view>
+					<img 
+						:class="{'del':true,'hide-icon': !openAlter ? true : false}" 
+						src="../../static/del.png" 
+						@touchstart.stop="del(index)"
+						@touchmove.stop=""	
+						@touchend.stop=""
+						/>
+				</div>
+			</div>
 			
-			<view class="tip-box" v-show="openAlter && showTip">
-				<image src="../../static/light.png" mode="widthFix" />
-				<text>点此添加功能,拖动功能可以调整排序</text>
-				<text @tap="showTip=!showTip">X</text>
-				<view></view>
-			</view>
+			<div class="tip-box" v-show="openAlter && showTip">
+				<img src="../../static/light.png" />
+				<p>点此添加功能,拖动功能可以调整排序</p>
+				<p @tap="showTip=!showTip">X</p>
+				<div></div>
+			</div>
 			
-			<view class="detail-box" v-show="openAlter">
-				<image class="module-img" src="../../static/add.png" mode="widthFix" @tap="addModule" />
-				<text>添加板块</text>
-			</view>
-			<view class="space" v-show="!openAlter"></view>
-			<view class="control-btn" @tap="openAlter=!openAlter"></view>
-			<text :class="{ 'hide-btn': openAlter }">管理版面</text>
-			<text :class="{ 'hide-btn': !openAlter }">保存</text>
-		</scroll-view>
-	</view>
+			<div class="detail-box" v-show="openAlter">
+				<img class="module-img" src="../../static/add.png" @tap="addModule" />
+				<p>添加板块</p>
+			</div>
+			<div class="space" v-show="!openAlter"></div>
+			<div class="control-btn" @tap="openAlter=!openAlter"></div>
+			<p :class="{ 'hide-btn': openAlter }">管理版面</p>
+			<p :class="{ 'hide-btn': !openAlter }">保存</p>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -84,6 +90,7 @@
 					top: 0,
 					left: 0
 				},
+				moving:false,
 				movingClass: NaN, 
 				move: {
 					beforeX: 0,
@@ -106,15 +113,9 @@
 			}
 		},
 		created() {
-			uni.getStorage({
-				key:"newModule",
-				success: (res) => {
-					this.image=res.data
-				},
-				complete: () =>{
-					this.imgInit()
-				}
-			})
+			// 按需从vuex / 通过传参 拿到修改后的image
+			// this.image =
+			this.imgInit()
 		},
 		mounted() {
 			if (this.image.length) {
@@ -122,10 +123,8 @@
 			}
 		},
 		beforeDestroy() {
-			uni.setStorage({
-				key:"newModule",
-				data:this.image
-			})
+			//离开的时候把当前的image传到 vuex / 其他路由等.
+			//    =this.image
 		},
 		methods: {
 			imghandle(url) {
@@ -141,17 +140,12 @@
 			},
 			init() { 
 				// 设置拖拽区域信息
-				let itemBox = uni.createSelectorQuery().in(this).select('.item-box')
-				itemBox.boundingClientRect(data => {
-					this.itemBox.width = data.width // 设置拖拽范围的总宽度
-					this.itemBox.height = data.height // 设置拖拽范围的总高度
-					this.itemBox.top = data.top // 设置拖拽范围的上边界坐标
-					this.itemBox.left = data.left // 设置拖拽范围的左边界坐标
-					this.updateLimit()
-				}).exec()
-			},
-			test(){
-				selectorQuery.selectViewport()
+				let data=this.$refs.dragArea.$el
+				this.itemBox.width = data.clientWidth // 设置拖拽范围的总宽度
+				this.itemBox.height = data.clientTop // 设置拖拽范围的总高度
+				this.itemBox.top = data.clientTop // 设置拖拽范围的上边界坐标
+				this.itemBox.left = data.clientLeft // 设置拖拽范围的左边界坐标
+				this.updateLimit()
 			},
 			distX(i) {	// 移动函数
 				return this.image[i].moving ? this.move.movingX : 0
@@ -190,6 +184,12 @@
 				this.cellW = this.itemBox.width / this.row
 				this.cellH = this.itemBox.height / this.column
 				this.alted = false
+			},
+			del(i){
+				if(this.moving){return false;}
+				this.image.splice(i,1)
+				this.updateArr(this.image.length)
+				this.init()
 			},
 			updateImg(index){
 				if(index===this.alted){
@@ -296,6 +296,8 @@
 			},
 			itemTap(e, i) {	
 				if(this.openAlter){
+					if(this.moving){return false;}
+					this.moving=true;
 					this.image[i].moving = !this.image[i].moving	
 					this.movingClass = i
 					this.move.beforeX = e.touches[0].clientX	
@@ -325,6 +327,7 @@
 					this.move.tarIndex!=='' ? this.image[this.move.tarIndex].moving=false : this.image[i].moving=false
 					this.move.tarIndex=''
 					this.movingClass = NaN
+					this.moving=false;
 					console.log('最终距离', this.move.movingX, this.move.movingY)
 					for (let value in this.move) { // 重置位置
 						this.move[value] =''
@@ -349,13 +352,26 @@
 		position: relative;
 	}
 
+	.item-box>div{
+		display: flex;
+		justify-content: center;
+		align-content: center;
+	}
+	
 	.moving {
-		z-index: 2;
+		z-index: 3;
 	}
 
-	.item-box image {
-		margin: 0 auto;
-		display: block;
+	.del{
+		width: 50rpx;
+		height:50rpx;
+		position: absolute !important;
+		right: 10rpx;
+		top:10rpx;
+		z-index:2;
+	}
+
+	.item-box img {
 		border-radius: 100rpx;
 	}
 
@@ -366,13 +382,13 @@
 		margin: 10px auto;
 		position: relative;
 	}
-	.tip-box image {
+	.tip-box img {
 		width: 11px;
 		height: 12px;
 		margin: auto 2.5px auto 9.5px;
 	}
 	
-	.tip-box text {
+	.tip-box p {
 		font-size: 11px;
 		line-height: 22px;
 		font-weight: 500;
@@ -381,14 +397,14 @@
 		flex: 7;
 	}
 	
-	.tip-box text+text {
+	.tip-box p+p {
 		font-size: 7.5px;
 		line-height: 22px;
 		display: inline-block;
 		flex: 1;
 	}
 	
-	.tip-box>view {
+	.tip-box>div {
 		margin-left: 12px;
 		float: left;
 		width: 0;
@@ -414,8 +430,7 @@
 		z-index: 999;
 	}
 	
-	.control-btn+text {
-		display: block;
+	.control-btn+p {
 		right: 9px;
 		bottom: 15px;
 		width: 30px;
@@ -427,9 +442,8 @@
 		position: absolute;
 	}
 
-	.control-btn+text+text {
+	.control-btn+p+p {
 		right: 9px;
-		display: block;
 		bottom: 15px;
 		width: 30px;
 		font-size: 12px;
@@ -455,18 +469,16 @@
 		text-align: center;
 	}
 	
-	.detail-box text {
+	.detail-box p {
 		height: 15px;
-		display: block;
 		font-size: 12.5px;
 		font-weight: 500;
 		color: rgba(34, 34, 34, 1);
 	}
 	
-	.detail-box image {
+	.detail-box img {
 		width: 57px;
 		height: 57px;
-		
 		background: rgba(245, 247, 249, 1);
 		border-radius: 50%;
 		display: block;
