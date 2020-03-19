@@ -10,7 +10,7 @@
 						<text>{{detail.detail}}</text>
 					</view>
 					<view class="select-box" @tap="select(detail.selected,m,d)">
-						<image src="https://wolfkoko.gitee.io/drag-guide/static/selected_03.png" mode="widthFix"  v-show="detail.selected"/>
+						<image src="/static/selected_03.png" mode="widthFix"  v-show="detail.selected"/>
 						<view v-show="!detail.selected"/>
 					</view>
 			</view>
@@ -198,7 +198,7 @@ export default {
 	},
 	methods: {
 		moduleImg(path) {
-			return 'https://wolfkoko.gitee.io/drag-guide/all/' + path + '.png';
+			return '/static/all/' + path + '.png';
 		},
 		select(state,m,d){
 			this.module[m].detail[d].selected=!this.module[m].detail[d].selected
