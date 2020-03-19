@@ -1,6 +1,6 @@
 <template>
 	<div class="body" >
-		<div scroll-y="true" :style="{width:scrollW,height:scrollH,position:'relative','overflow-y':'scroll','overflow-x':'hidden'}">
+		<div :style="{width:scrollW,height:scrollH,position:'relative','overflow-y':'scroll','overflow-x':'hidden'}">
 			
 			<div class="item-box" ref="dragArea">
 				<div 
