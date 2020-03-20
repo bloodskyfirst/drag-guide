@@ -1,4 +1,4 @@
-﻿###    drag-guide
+###    drag-guide
 ###  a drag-guide component 一个基于vue开发的可拖拽宫格插件，兼容多端.
 <p>拖拽改变方式按照安卓原生模块改变的样式 进行开发.</p>
 
@@ -17,7 +17,7 @@
 
 ####  实例图片
 <br>
-![Image](https://raw.githubusercontent.com/bloodskyfirst/drag-guide/master/demo.gif)
+[![Image](https://raw.githubusercontent.com/bloodskyfirst/drag-guide/master/demo.gif)]
 <br>
 
 ####  插件体验网址
