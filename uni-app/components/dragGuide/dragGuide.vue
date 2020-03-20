@@ -9,7 +9,7 @@
 					:class="{'moving':movingClass===index}" 
 					:style="{transform:'translate('+distX(index)+'px'+','+distY(index)+'px)',width: 'calc(100% / '+row+')',position:'relative'}"
 					@touchstart.stop="itemTap($event,index)" 
-					@touchmove.stop="itemMove($event,index)" 
+					@touchmove.stop.prevent="itemMove($event,index)" 
 					@touchend.stop="stopMove($event,index)">
 					<image 
 						:src="imghandle(item.img)" 
