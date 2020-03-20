@@ -20,7 +20,7 @@
 					<image 
 						v-show="openAlter"
 						class="del"
-						src="/static/del.png" 
+						src="../../static/del.png" 
 						mode="widthFix"
 						@touchstart.stop="del(index)"
 						@touchmove.stop=""
@@ -30,7 +30,7 @@
 			</view>
 			
 			<view class="tip-box" v-show="openAlter && showTip">
-				<image src="/static/light.png" mode="widthFix" />
+				<image src="../../static/light.png" mode="widthFix" />
 				<text>点此添加功能,拖动功能可以调整排序</text>
 				<text @tap="showTip=!showTip">X</text>
 				<view></view>
@@ -138,7 +138,7 @@
 		},
 		methods: {
 			imghandle(url) {
-				return "/static/all/" + url + ".png" 
+				return "../../static/all/" + url + ".png" 
 			},
 			imgInit(){
 				for(let i=0,img=this.image;i<=this.image.length-1;i++){
