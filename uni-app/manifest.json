@@ -73,6 +73,11 @@
         "usingComponents" : true
     },
     "h5" : {
+        "optimize" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        },
         "title" : "X宫格模块",
         "router" : {
             "mode" : "hash",
@@ -82,6 +87,11 @@
         "uniStatistics" : {
             "enable" : false
         },
-        "domain" : "https://wolfkoko.gitee.io/drag-guide/"
+        "domain" : "https://wolfkoko.gitee.io/drag-guide/",
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        }
     }
 }
